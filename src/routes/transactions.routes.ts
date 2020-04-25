@@ -15,21 +15,8 @@ transactionsRouter.get('/', async (request, response) => {
   const transactions = await transactionRepository.find();
   const balance = await transactionRepository.getBalance();
 
-  const parsedTransactions = transactions.map(transaction => {
-    return {
-      id: transaction.id,
-      title: transaction.title,
-      value: transaction.value,
-      type: transaction.type,
-      category: {
-        id: transaction.category.id,
-        title: transaction.category.title,
-      },
-    };
-  });
-
   return response.json({
-    transactions: parsedTransactions,
+    transactions,
     balance,
   });
 });
